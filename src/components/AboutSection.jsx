@@ -1,94 +1,81 @@
-import { motion } from 'framer-motion';
-import SketchCard from './SketchCard';
-import { Circle, Arrow } from './HandDrawnScribbles';
+import {
+  SiPython, SiJavascript, SiC, SiCplusplus,
+  SiReact, SiNodedotjs, SiFlask, SiFlutter, SiDocker,
+  SiGit, SiArduino, SiAndroid, SiMysql, SiHtml5,
+} from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
 
-const stats = [
-  { label: 'Live Projects', count: '3+' },
-  { label: 'Technologies', count: '5+' },
-  { label: 'National Platforms', count: '1' },
+const stack = [
+  { label: 'Python',      Icon: SiPython },
+  { label: 'JavaScript',  Icon: SiJavascript },
+  { label: 'Java',        Icon: FaJava },
+  { label: 'C',           Icon: SiC },
+  { label: 'C++',         Icon: SiCplusplus },
+  { label: 'HTML / CSS',  Icon: SiHtml5 },
+  { label: 'SQL',         Icon: SiMysql },
+  { label: 'React',       Icon: SiReact },
+  { label: 'Node.js',     Icon: SiNodedotjs },
+  { label: 'Flask',       Icon: SiFlask },
+  { label: 'Flutter',     Icon: SiFlutter },
+  { label: 'Docker',      Icon: SiDocker },
+  { label: 'Git',         Icon: SiGit },
+  { label: 'Arduino',     Icon: SiArduino },
+  { label: 'Android SDK', Icon: SiAndroid },
 ];
 
 export default function AboutSection() {
   return (
-    <section id="about" style={{ padding: '8rem 0' }}>
+    <section id="about" style={{ width: '100%', paddingTop: 'clamp(4rem,6vw,8rem)', paddingBottom: 'clamp(4rem,6vw,8rem)' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '4rem', alignItems: 'center' }}>
-          
-          <div style={{ position: 'relative' }}>
-            <SketchCard tilt={1.5}>
-              <span className="label-sketch" style={{ marginBottom: '1.5rem', display: 'block' }}>
-                01 — About me
-              </span>
-              <h2 className="display-title" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
-                Building with <span style={{ color: 'var(--accent-orange)' }}>purpose.</span>
-              </h2>
-              <p style={{ color: 'var(--text-dark)', lineHeight: 1.8, marginBottom: '1.5rem', fontSize: '1rem', opacity: 0.9 }}>
-                I'm a <span>Computer Science Engineering</span> student with a deep passion for building real-world solutions. I thrive at the intersection of Data Science, Full-Stack Web Development, and emerging AI/ML technologies.
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '3rem',
+        }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+              About
+            </h2>
+            <p style={{ maxWidth: '580px', lineHeight: 1.6, color: 'var(--fg)', fontSize: '1rem' }}>
+              I'm a Computer Science Engineering student with a deep passion for building
+              real-world solutions. I thrive at the intersection of Data Science, Full-Stack
+              Web Development, and emerging AI/ML technologies.
+            </p>
+            <p style={{ maxWidth: '580px', lineHeight: 1.6, color: 'var(--fg)', fontSize: '1rem', marginTop: '1rem' }}>
+              From national-scale safety platforms to accessible civic tools, I believe
+              software should be purposeful, inclusive, and impactful. Every project I take
+              on starts with a problem worth solving.
+            </p>
+
+            {/* Tech stack */}
+            <div style={{ marginTop: '3rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.01em' }}>Tech stack</h3>
+              <p style={{ marginTop: '0.25rem', marginBottom: '1.25rem', color: 'var(--fg)', fontSize: '1rem' }}>
+                Some technologies I use on a daily basis.
               </p>
-              <p style={{ color: 'var(--text-dark)', lineHeight: 1.8, marginBottom: '2rem', fontSize: '1rem', opacity: 0.9 }}>
-                From national-scale safety platforms to accessible civic tools, I believe software should be purposeful, inclusive, and impactful. Every project I take on starts with a problem worth solving.
-              </p>
-              
-              <div style={{ display: 'flex', gap: '3rem', marginTop: '3rem' }}>
-                {stats.map((stat, i) => (
-                  <div key={stat.label} style={{ textAlign: 'center' }}>
-                    <span style={{ 
-                      fontFamily: 'var(--font-hand)', 
-                      fontSize: '2.5rem', 
-                      color: 'var(--accent-orange)',
-                      display: 'block' 
-                    }}>
-                      {stat.count}
-                    </span>
-                    <span className="label-sketch" style={{ fontSize: '0.65rem' }}>{stat.label}</span>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+                {stack.map(({ label, Icon }) => (
+                  <div key={label} style={{
+                    display: 'flex', alignItems: 'center', gap: '0.5rem',
+                    padding: '0.625rem 0.75rem',
+                    borderRadius: '0.375rem',
+                    background: 'var(--bg-darken)',
+                    fontWeight: 600,
+                    fontSize: '0.75rem',
+                    transition: 'opacity 0.15s',
+                    cursor: 'default',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '0.75'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                  >
+                    <Icon style={{ width: 16, height: 16, flexShrink: 0 }} />
+                    <span>{label}</span>
                   </div>
                 ))}
               </div>
-            </SketchCard>
-            
-            {/* Hand-drawn underline for specific text */}
-            <motion.div
-              style={{ position: 'absolute', top: '10px', right: '-40px', transform: 'rotate(15deg)' }}
-            >
-              <Arrow delay={1.8} />
-              <span className="handwritten" style={{ fontSize: '1.2rem', marginLeft: '10px' }}>
-                Engineering <br /> Student.
-              </span>
-            </motion.div>
+            </div>
           </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 1 }}
-              style={{ paddingLeft: '4rem', borderLeft: '1px solid var(--accent-orange)' }}
-             >
-                <div style={{ position: 'relative', display: 'inline-block' }}>
-                  <span className="label-sketch" style={{ color: 'var(--text-light)', opacity: 0.6 }}>Education</span>
-                  <Circle delay={1.5} />
-                </div>
-                <div style={{ marginTop: '2rem' }}>
-                  <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--white)', marginBottom: '0.5rem' }}>
-                    SVERI's College of Engineering
-                  </h4>
-                  <p className="handwritten" style={{ fontSize: '1.1rem', opacity: 0.8, color: 'var(--text-light)' }}>
-                    B.Tech in Computer Science (2023 - Present)
-                  </p>
-                </div>
-                
-                <div style={{ marginTop: '2rem' }}>
-                  <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--white)', marginBottom: '0.5rem' }}>
-                    Stepping Stones High School
-                  </h4>
-                  <p className="handwritten" style={{ fontSize: '1.1rem', opacity: 0.8, color: 'var(--text-light)' }}>
-                    Aurangabad, Maharashtra (2021)
-                  </p>
-                </div>
-             </motion.div>
-          </div>
-          
         </div>
       </div>
     </section>

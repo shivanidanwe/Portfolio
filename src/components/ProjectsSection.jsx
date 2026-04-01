@@ -1,136 +1,117 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import SketchCard from './SketchCard';
-import { Arrow, Circle } from './HandDrawnScribbles';
+import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
   {
-    num: '01',
     title: 'TRAVION',
-    subtitle: 'Tourist Safety Application',
-    description: 'A national-scale travel safety platform leveraging Aadhaar/Passport verification, real-time GPS tracking, AI-based risk detection, e-FIR filing, and blockchain integrity.',
+    type: 'Safety Platform',
+    desc: 'A national-scale travel safety platform leveraging Aadhaar/Passport verification, real-time GPS tracking, AI-based risk detection, e-FIR filing, and blockchain integrity.',
     tags: ['AI/ML', 'Blockchain', 'IoT', 'Python', 'React'],
-    tilt: -1.5,
+    link: null,
   },
   {
-    num: '02',
     title: 'Inclusive Voting System',
-    subtitle: 'Accessible Technology',
-    description: 'An accessible voting system using fingerprint authentication and a sign-language glove — enabling secure and independent voting for physically challenged citizens.',
+    type: 'Accessible Technology',
+    desc: 'An accessible voting system using fingerprint authentication and a sign-language glove — enabling secure and independent voting for physically challenged citizens.',
     tags: ['Biometrics', 'IoT', 'Accessibility', 'Python'],
-    tilt: 1.2,
+    link: null,
   },
   {
-    num: '03',
     title: 'Drivio',
-    subtitle: 'Vehicle Rental Service',
-    description: 'A full-stack web-based vehicle rental platform for booking, real-time tracking, and fleet management built with a clean interface and robust backend.',
-    tags: ['Full-Stack', 'Web App', 'JavaScript', 'Node.js'],
-    tilt: -0.8,
+    type: 'Vehicle Rental Service',
+    desc: 'A full-stack web-based vehicle rental platform for booking, real-time tracking, and fleet management built with a clean interface and robust backend.',
+    tags: ['Full-Stack', 'JavaScript', 'Node.js'],
+    link: null,
   },
   {
-    num: '04',
     title: 'Smart Obstacle Detection',
-    subtitle: 'Embedded Systems',
-    description: 'An IoT-based object obstacle detection system using ultrasonic sensors to detect and prevent collisions in real time.',
+    type: 'Embedded Systems',
+    desc: 'An IoT-based obstacle detection system using ultrasonic sensors to detect and prevent collisions in real time.',
     tags: ['Arduino', 'IoT', 'Python', 'Sensors'],
-    tilt: 1.5,
+    link: null,
   },
 ];
 
 export default function ProjectsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-
   return (
-    <section id="projects" style={{ padding: '8rem 0' }}>
-      <div className="container" ref={ref}>
-        <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           animate={inView ? { opacity: 1, y: 0 } : {}}
-           transition={{ duration: 1 }}
-           style={{ marginBottom: '6rem', position: 'relative', display: 'flex', alignItems: 'center', gap: '2rem' }}
-        >
-          <div>
-            <span className="label-sketch" style={{ marginBottom: '0.75rem', display: 'block' }}>02 — Work</span>
-            <h2 className="display-title" style={{ fontSize: '4.5rem' }}>
-              Selected <span style={{ color: 'var(--accent-orange)' }}>Projects.</span>
+    <section id="projects" style={{ width: '100%', paddingTop: 'clamp(4rem,6vw,8rem)', paddingBottom: 'clamp(4rem,6vw,8rem)' }}>
+      <div className="container">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '3rem',
+        }} className="proj-layout">
+          {/* Left: heading */}
+          <div style={{ flexShrink: 0, maxWidth: '320px' }}>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+              Selected Projects
             </h2>
+            <p style={{ lineHeight: 1.6, color: 'var(--fg)', fontSize: '1rem' }}>
+              Things I've built — focused on social impact and real-world problems.
+            </p>
           </div>
-          
-          <div style={{ transform: 'rotate(-5deg)', marginTop: '2rem' }}>
-            <span className="handwritten" style={{ fontSize: '1.2rem', opacity: 0.6 }}>
-               (building for <br /> social impact)
-            </span>
-          </div>
-        </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '4rem' }}>
-          {projects.map((project, i) => (
-            <div key={project.num} style={{ position: 'relative' }}>
-              <SketchCard tilt={project.tilt} delay={i * 0.1}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                  <span style={{ 
-                    fontFamily: 'var(--font-hand)', 
-                    fontSize: '2rem', 
-                    color: 'var(--accent-orange)',
-                    opacity: 0.3
-                  }}>
-                    {project.num}
-                  </span>
-                  
-                  <div style={{ transform: 'rotate(135deg)' }}>
-                     <Arrow delay={2 + i * 0.1} />
+          {/* Right: project list */}
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            {projects.map((p) => (
+              <div key={p.title} style={{
+                padding: '1.5rem',
+                borderRadius: '0.75rem',
+                background: 'var(--bg-darken)',
+                transition: 'opacity 0.15s',
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+                      <h3 style={{ fontSize: '1.125rem', fontWeight: 700 }}>{p.title}</h3>
+                      <span style={{
+                        fontSize: '0.7rem', fontWeight: 700,
+                        color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em',
+                        background: 'rgba(218,77,8,0.1)', padding: '0.15rem 0.5rem', borderRadius: '0.25rem',
+                      }}>
+                        {p.type}
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '0.9rem', lineHeight: 1.65, color: 'rgba(45,45,45,0.75)', marginBottom: '1rem' }}>
+                      {p.desc}
+                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      {p.tags.map(t => (
+                        <span key={t} style={{
+                          fontSize: '0.72rem', fontWeight: 600,
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '0.25rem',
+                          background: 'rgba(45,45,45,0.08)',
+                          color: 'rgba(45,45,45,0.7)',
+                        }}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: '0.75rem', color: 'var(--text-dark)' }}>
-                  {project.title}
-                </h3>
-                
-                <h4 className="label-sketch" style={{ color: 'var(--accent-orange)', marginBottom: '1.5rem', fontSize: '0.6rem' }}>
-                   {project.subtitle}
-                </h4>
-
-                <p style={{ color: 'var(--text-dark)', lineHeight: 1.6, marginBottom: '2rem', fontSize: '0.95rem', opacity: 0.85 }}>
-                  {project.description}
-                </p>
-
-                <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
-                  {project.tags.map(tag => (
-                    <span 
-                      key={tag} 
-                      style={{ 
-                        fontFamily: 'var(--font-body)', 
-                        fontSize: '0.7rem', 
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        padding: '0.3rem 0.8rem',
-                        border: '1px solid rgba(0,0,0,0.1)',
-                        borderRadius: '20px',
-                        color: 'var(--text-dark)',
-                        opacity: 0.6
-                      }}
+                  {p.link && (
+                    <a href={p.link} target="_blank" rel="noopener noreferrer"
+                      style={{ color: 'rgba(45,45,45,0.4)', flexShrink: 0, transition: 'color 0.15s' }}
+                      onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
+                      onMouseLeave={e => e.currentTarget.style.color = 'rgba(45,45,45,0.4)'}
                     >
-                      {tag}
-                    </span>
-                  ))}
+                      <ArrowUpRight size={20} />
+                    </a>
+                  )}
                 </div>
-              </SketchCard>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
-        
-        {/* Floating background markers */}
-        <motion.div
-           className="parallax-element"
-           style={{ position: 'absolute', top: '10%', right: '5%', opacity: 0.05, fontSize: '10rem', color: 'var(--accent-orange)', transform: 'rotate(10deg)', zIndex: -1 }}
-           animate={{ rotate: [10, 15, 10] }}
-           transition={{ duration: 10, repeat: Infinity }}
-        >
-           ✦
-        </motion.div>
       </div>
+
+      <style>{`
+        @media (min-width: 1024px) {
+          .proj-layout { flex-direction: row !important; align-items: flex-start !important; gap: 5rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

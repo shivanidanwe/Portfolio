@@ -1,79 +1,157 @@
-import { motion } from 'framer-motion';
-import SketchCard from './SketchCard';
-import { Underline, Circle } from './HandDrawnScribbles';
+import { Briefcase, GraduationCap, MapPin } from 'lucide-react';
 
-const experiences = [
+const workExperience = [
   {
-    year: '2023 – Present',
-    role: 'Team Leader & System Architect',
-    org: 'TRAVION — National Safety Platform',
-    desc: 'Leading end-to-end system design and feature planning. Integrating AI, blockchain, and real-time tech into a unified platform.',
+    title: 'Team Leader & System Architect',
+    organization: 'TRAVION',
+    period: '2023 – Present',
+    location: 'India',
+    employmentType: 'Project Lead',
+    isActive: true,
   },
   {
-    year: '2023 – Present',
-    role: 'Full-Stack Developer',
-    org: 'Academic & Independent Projects',
-    desc: 'Hands-on development spanning Python, React, and IoT systems. Built full-stack web apps and game logic.',
+    title: 'Full-Stack Developer',
+    organization: 'Academic & Independent Projects',
+    period: '2023 – Present',
+    location: 'India',
+    employmentType: 'Freelance',
+    isActive: false,
   },
 ];
 
-export default function ExperienceSection() {
+const education = [
+  {
+    title: 'B.Tech in Computer Science',
+    organization: "SVERI's College of Engineering",
+    period: '2023 – Present',
+    location: 'Maharashtra, India',
+    isActive: true,
+  },
+  {
+    title: 'Higher Secondary (12th)',
+    organization: 'Stepping Stones High School',
+    period: '2021',
+    location: 'Aurangabad, Maharashtra',
+    isActive: false,
+  },
+];
+
+function TimelineItem({ title, organization, period, location, employmentType, isActive, isLast }) {
   return (
-    <section id="experience" style={{ padding: '8rem 0' }}>
-      <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(250px, 1fr) 2fr', gap: '4rem' }}>
-          
-          <div style={{ position: 'relative' }}>
-             <span className="label-sketch" style={{ marginBottom: '0.75rem', display: 'block' }}>03 — Journey</span>
-             <h2 className="display-title" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
-                Where i've <br /> 
-                <span style={{ color: 'var(--accent-orange)' }}>
-                   been.
-                   <Underline delay={1} />
-                </span>
-             </h2>
-             <p className="handwritten" style={{ fontSize: '1.2rem', opacity: 0.6, maxWidth: '280px' }}>
-                (always learning, building, and solving problems)
-             </p>
-          </div>
+    <div style={{ position: 'relative', display: 'flex', gap: '1.25rem' }}>
+      {/* Dot + line */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.375rem' }}>
+          {isActive && (
+            <span className="ping" style={{
+              position: 'absolute',
+              width: '1rem', height: '1rem',
+              borderRadius: '50%',
+              background: 'var(--primary)',
+              opacity: 0.6,
+            }} />
+          )}
+          <div style={{
+            width: '1rem', height: '1rem',
+            borderRadius: '50%',
+            background: 'var(--primary)',
+            boxShadow: '0 0 0 5px rgba(218,77,8,0.2)',
+            position: 'relative', zIndex: 1,
+          }} />
+        </div>
+        {!isLast && (
+          <div style={{ width: '1px', flex: 1, background: 'var(--bg-darken)', marginTop: '0.25rem' }} />
+        )}
+      </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-            {experiences.map((exp, i) => (
-              <SketchCard key={i} tilt={i % 2 === 0 ? -1 : 1} delay={i * 0.1}>
-                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <span 
-                      style={{ 
-                        fontFamily: 'var(--font-body)', 
-                        fontSize: '0.8rem', 
-                        color: 'var(--accent-orange)',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em'
-                      }}
-                    >
-                      {exp.year}
-                    </span>
-                    <div style={{ transform: 'rotate(-5deg)', opacity: 0.3 }}>
-                       <Circle delay={1.5 + i * 0.1} />
-                    </div>
-                 </div>
-
-                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-dark)' }}>
-                    {exp.role}
-                 </h3>
-                 <h4 className="label-sketch" style={{ fontSize: '0.7rem', color: 'var(--text-dark)', opacity: 0.5, marginBottom: '1.5rem' }}>
-                    {exp.org}
-                 </h4>
-
-                 <p style={{ color: 'var(--text-dark)', lineHeight: 1.6, fontSize: '0.95rem', opacity: 0.85 }}>
-                    {exp.desc}
-                 </p>
-              </SketchCard>
-            ))}
-          </div>
-
+      {/* Content */}
+      <div style={{ paddingBottom: isLast ? 0 : '2rem', minWidth: 0, textAlign: 'left' }}>
+        <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--primary)', marginBottom: '0.125rem' }}>
+          {period}
+        </p>
+        <h3 style={{ fontSize: '1.125rem', fontWeight: 700, lineHeight: 1.3 }}>{title}</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.375rem', color: 'rgba(45,45,45,0.7)', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+          <span style={{ fontWeight: 500 }}>{organization}</span>
+          {location && (
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.25rem',
+              fontSize: '0.75rem', background: 'var(--bg-darken)',
+              padding: '0.125rem 0.5rem', borderRadius: '9999px', fontWeight: 500,
+            }}>
+              <MapPin size={12} />{location}
+            </span>
+          )}
+          {employmentType && (
+            <span style={{
+              display: 'inline-flex', alignItems: 'center',
+              fontSize: '0.75rem', background: 'var(--bg-darken)',
+              padding: '0.125rem 0.5rem', borderRadius: '9999px', fontWeight: 500,
+            }}>
+              {employmentType}
+            </span>
+          )}
         </div>
       </div>
+    </div>
+  );
+}
+
+export default function ExperienceSection() {
+  return (
+    <section id="experience" style={{ width: '100%', paddingTop: 'clamp(4rem,6vw,8rem)', paddingBottom: 'clamp(4rem,6vw,8rem)' }}>
+      <div className="container">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '3rem',
+        }} className="exp-layout">
+          {/* Left: heading */}
+          <div style={{ flexShrink: 0, maxWidth: '320px' }}>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+              Experience &amp; Education
+            </h2>
+            <p style={{ lineHeight: 1.6, color: 'var(--fg)', fontSize: '1rem' }}>
+              My professional journey so far — where I've worked and what I've studied.
+            </p>
+          </div>
+
+          {/* Right: timeline columns */}
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2.5rem' }} className="timeline-cols">
+            {/* Work Experience */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '1.75rem' }}>
+                <span style={{ color: 'var(--primary)' }}><Briefcase size={22} /></span>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Work Experience</h3>
+              </div>
+              <div>
+                {workExperience.map((item, i) => (
+                  <TimelineItem key={i} {...item} isLast={i === workExperience.length - 1} />
+                ))}
+              </div>
+            </div>
+
+            {/* Education */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '1.75rem' }}>
+                <span style={{ color: 'var(--primary)' }}><GraduationCap size={22} /></span>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Education</h3>
+              </div>
+              <div>
+                {education.map((item, i) => (
+                  <TimelineItem key={i} {...item} isLast={i === education.length - 1} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @media (min-width: 1024px) {
+          .exp-layout { flex-direction: row !important; align-items: flex-start !important; gap: 5rem !important; }
+          .timeline-cols { flex-direction: row !important; }
+        }
+      `}</style>
     </section>
   );
 }
